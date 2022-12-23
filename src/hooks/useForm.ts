@@ -24,7 +24,6 @@ export const useForm = <TValidator extends Zod.AnyZodObject>(
 
   const validateSingleField = useCallback(
     (key: keyof TForm, value: string) => {
-      console.log("========= validating ==========");
       const data = validator
         .pick({ [key]: true as const })
         .safeParse({ [key]: value });
@@ -87,12 +86,20 @@ export const useForm = <TValidator extends Zod.AnyZodObject>(
     return true;
   };
 
+  const setExternalErrors = (newErrors: Partial<TErrors>) => {
+    for (const key in newErrors) {
+      if (!(key in errors)) continue;
+      setErrors((oldErrors) => ({ ...oldErrors, [key]: newErrors[key] }));
+    }
+  };
+
   return {
     form,
     validateForm,
     errors,
     validateSingleField,
     changeSingleField,
+    setExternalErrors,
   };
 };
 
