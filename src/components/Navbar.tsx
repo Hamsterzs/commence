@@ -1,9 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import useNavStore, { ROUTES } from "store/navBar";
+import { trpc } from "utils/trpc";
+import { useSession } from "next-auth/react";
 
 const NavBar = () => {
   const { current } = useNavStore();
+  const { status } = useSession();
+
+  // const self = trpc.auth.getSelf.useQuery();
+
+  // const username = self.data?.username;
+
+  const userLink =
+    status === "authenticated" ? ROUTES.ACCOUNT_SETUP : ROUTES.SIGN_IN;
 
   return (
     <div className="static top-0 h-navHeight w-full border-b border-gray-300">
@@ -30,9 +40,11 @@ const NavBar = () => {
           Projects
         </NavLinks>
         <NavLinks
-          route={ROUTES.EDIT_USER}
+          route={userLink}
           className="ml-auto"
-          active={current === ROUTES.EDIT_USER}
+          active={
+            current.startsWith(ROUTES.MEMBER) || current === ROUTES.SIGN_IN
+          }
         >
           User
         </NavLinks>

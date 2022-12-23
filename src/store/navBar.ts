@@ -5,7 +5,9 @@ export enum ROUTES {
   MEMBERS = "/members",
   PROJECTS = "/projects",
   UNSET = "/",
-  EDIT_USER = "/edit-user",
+  MEMBER = "/member/",
+  SIGN_IN = "/sign-in",
+  ACCOUNT_SETUP = "/user-setup",
 }
 
 type NavSliceT = {

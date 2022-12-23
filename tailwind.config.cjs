@@ -7,6 +7,9 @@ module.exports = {
       padding: { DEFAULT: "1rem" },
     },
     extend: {
+      fontFamily: {
+        title: ["Varela Round", "sans-serif"],
+      },
       colors: {
         primary: "#a6c7e7",
         "primary-600": "rgb(142, 173, 204)",
